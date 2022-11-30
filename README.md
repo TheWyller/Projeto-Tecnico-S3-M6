@@ -1,5 +1,7 @@
 # Projeto-Tecnico-S3-M6
 
+Projeto fullstack realizado em Node.js com o framework express com o banco de dados relacional Postgres e React com Typescript com o intuito de criar usuarios que podem criar diversos contatos vinculados a eles, ou seja, uma agenda eletrônica.
+
 ## Etapas em desenvolvimento
   ### Front-end
     - Criar botão de editar contato

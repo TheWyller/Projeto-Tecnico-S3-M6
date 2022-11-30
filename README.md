@@ -6,6 +6,7 @@
     - Poder adicionar mais de um email e telefone
     - Realizar Testes
   ### Back-end
+    - Poder adicionar mais de um email e telefone
     - Aumentar cobertura de Testes
   ### Ambos
     - Adicionar em um contenier(Docker)

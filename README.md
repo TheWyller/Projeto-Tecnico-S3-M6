@@ -9,7 +9,7 @@
     - Poder adicionar mais de um email e telefone
     - Aumentar cobertura de Testes
   ### Ambos
-    - Adicionar em um contenier(Docker)
+    - Adicionar em um conteiner(Docker)
 
 
 ## Como Rodar a Aplicação

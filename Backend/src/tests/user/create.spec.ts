@@ -6,10 +6,11 @@ import request from "supertest";
 describe("Teste para metodo POST em /users", () => {
   let connection: DataSource;
   let testUser = {
-    name: "Daniel Kenzie",
-    email: "daniel@kenzie.com",
-    password: "123456Ab!",
-    age: 21,
+    firstName: "Wyller",
+    lastName: "Fernandes",
+    phone: "41999999999",
+    email: "wyller5@kenzie.com",
+    password: "123456",
   };
 
   beforeAll(async () => {
@@ -33,9 +34,10 @@ describe("Teste para metodo POST em /users", () => {
     expect(response.body).toEqual(
       expect.objectContaining({
         id: response.body.id,
-        name: testUser.name,
+        firstName: testUser.firstName,
+        lastName: testUser.lastName,
+        phone: testUser.phone,
         email: testUser.email,
-        age: testUser.age,
         created_at: response.body.created_at,
         updated_at: response.body.updated_at,
       })

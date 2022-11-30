@@ -2,70 +2,67 @@ import { AppDataSource } from "../../data-source";
 import { DataSource } from "typeorm";
 import app from "../../app";
 import request from "supertest";
+import { IUserLogin, IUserRequest } from "../../interfaces/user";
+import { createAdm } from "../../helpers";
 
 describe("Teste para metodo GET em /users", () => {
   let connection: DataSource;
 
-  interface User {
-    name: string;
-    email: string;
-    password?: string;
-    age: number;
-  }
-
-  let testUser1: User = {
-    name: "Daniel Kenzie",
-    email: "daniel@kenzie.com",
-    password: "123456Ab!",
-    age: 21,
+  let admUser: IUserLogin = {
+    email: "root@root.com",
+    password: "1234",
   };
 
-  let testUser2: User = {
-    name: "Ugo Kenzie",
-    email: "ugo@kenzie.com",
-    password: "123456Ab!",
-    age: 18,
+  let testUser1: IUserRequest = {
+    firstName: "Wyller",
+    lastName: "Fernandes",
+    phone: "41999999999",
+    email: "wyller@kenzie.com",
+    password: "123456",
+  };
+
+  let testUser2: IUserRequest = {
+    firstName: "Wyller2",
+    lastName: "Fernandes2",
+    phone: "419999999992",
+    email: "wyller2@kenzie.com",
+    password: "123456",
   };
 
   beforeAll(async () => {
     await AppDataSource.initialize()
-      .then((res) => (connection = res))
+      .then(async (res) => {
+        connection = res;
+        await createAdm();
+      })
       .catch((err) => {
         console.error("Error during Data Source initialization", err);
       });
 
     await request(app).post("/users").send(testUser1);
     await request(app).post("/users").send(testUser2);
-
-    delete testUser1.password;
-    delete testUser2.password;
   });
 
   afterAll(async () => {
     await connection.destroy();
   });
 
-  test("Tentando listar todos usuários", async () => {
+  test("Tentando listar todos usuários sem ser ADM", async () => {
     const response = await request(app).get("/users");
 
+    expect(response.status).toEqual(401);
+    expect(response.body).toHaveProperty("message");
+  });
+
+  test("Tentando listar todos usuários como ADM", async () => {
+    const admResponse = await request(app).post("/login").send(admUser);
+
+    const response = await request(app)
+      .get("/users")
+      .set("Authorization", `Bearer ${admResponse.body.token}`);
+
     expect(response.status).toEqual(200);
-    expect(response.body.length).toEqual(2);
+    expect(response.body.length).toEqual(3);
     expect(Array.isArray(response.body)).toBe(true);
-    expect(response.body).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          ...testUser1,
-          id: response.body[0].id,
-          created_at: response.body[0].created_at,
-          updated_at: response.body[0].updated_at,
-        }),
-        expect.objectContaining({
-          ...testUser2,
-          id: response.body[1].id,
-          created_at: response.body[1].created_at,
-          updated_at: response.body[1].updated_at,
-        }),
-      ])
-    );
   });
 });

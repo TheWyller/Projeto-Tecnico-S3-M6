@@ -2,22 +2,22 @@ import { AppDataSource } from "../../data-source";
 import { DataSource } from "typeorm";
 import app from "../../app";
 import request from "supertest";
+import { IUserLogin, IUserRequest } from "../../interfaces/user";
 
 describe("Teste para metodo DELETE em /users/:id", () => {
   let connection: DataSource;
 
-  interface User {
-    name: string;
-    email: string;
-    password?: string;
-    age: number;
-  }
+  let testUser1: IUserRequest = {
+    firstName: "Wyller",
+    lastName: "Fernandes",
+    phone: "41999999999",
+    email: "wyller@kenzie.com",
+    password: "123456",
+  };
 
-  let testUser1: User = {
-    name: "Daniel Kenzie",
-    email: "daniel@kenzie.com",
-    password: "123456Ab!",
-    age: 21,
+  let user1: IUserLogin = {
+    email: "wyller@kenzie.com",
+    password: "123456",
   };
 
   let response1: any;
@@ -37,18 +37,22 @@ describe("Teste para metodo DELETE em /users/:id", () => {
   });
 
   test("Tentando deletar um usuário", async () => {
-    const responseDelete = await request(app).delete(
-      `/users/${response1.body.id}`
-    );
+    const loginResponse = await request(app).post("/login").send(user1);
+    const responseDelete = await request(app)
+      .delete(`/users/${response1.body.id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     expect(responseDelete.status).toEqual(200);
     expect(responseDelete.body).toHaveProperty("message");
   });
 
   test("Tentando deletar um usuário que não existe", async () => {
-    const response = await request(app).get(`/users/1`);
+    const loginResponse = await request(app).post("/login").send(user1);
+    const response = await request(app)
+      .get(`/users/1`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
-    expect(response.status).toEqual(404);
+    expect(response.status).toEqual(401);
     expect(response.body).toHaveProperty("message");
   });
 });

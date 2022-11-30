@@ -2,29 +2,30 @@ import { AppDataSource } from "../../data-source";
 import { DataSource } from "typeorm";
 import app from "../../app";
 import request from "supertest";
+import { IUserLogin, IUserRequest } from "../../interfaces/user";
 
 describe("Teste para metodo PATCH em /users/:id", () => {
   let connection: DataSource;
 
-  interface User {
-    name: string;
-    email: string;
-    password?: string;
-    age: number;
-  }
-
-  let testUser1: User = {
-    name: "Daniel Kenzie",
-    email: "daniel@kenzie.com",
-    password: "123456Ab!",
-    age: 21,
+  let testUser1: IUserRequest = {
+    firstName: "Wyller",
+    lastName: "Fernandes",
+    phone: "41999999999",
+    email: "wyller@kenzie.com",
+    password: "123456",
   };
 
-  let testUser2: User = {
-    name: "Ugo Kenzie",
-    email: "ugo@kenzie.com",
-    password: "123456Ab!",
-    age: 18,
+  let testUser2: IUserRequest = {
+    firstName: "Wyller2",
+    lastName: "Fernandes2",
+    phone: "419999999992",
+    email: "wyller2@kenzie.com",
+    password: "123456",
+  };
+
+  let user1: IUserLogin = {
+    email: "wyller@kenzie.com",
+    password: "123456",
   };
 
   let response1: any;
@@ -44,11 +45,15 @@ describe("Teste para metodo PATCH em /users/:id", () => {
   });
 
   test("Tentando atualizar um usuário", async () => {
+    const loginResponse = await request(app).post("/login").send(user1);
     const responsePatch = await request(app)
       .patch(`/users/${response1.body.id}`)
-      .send(testUser2);
+      .send(testUser2)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
-    const responseGet = await request(app).get(`/users/${response1.body.id}`);
+    const responseGet = await request(app)
+      .get(`/users/${response1.body.id}`)
+      .set("Authorization", `Bearer ${loginResponse.body.token}`);
 
     expect(responsePatch.status).toEqual(200);
     expect(responsePatch.body).toHaveProperty("message");
@@ -56,9 +61,10 @@ describe("Teste para metodo PATCH em /users/:id", () => {
     expect(responseGet.body).toEqual(
       expect.objectContaining({
         id: responseGet.body.id,
-        name: testUser2.name,
+        firstName: testUser2.firstName,
+        lastName: testUser2.lastName,
+        phone: testUser2.phone,
         email: testUser2.email,
-        age: testUser2.age,
         created_at: responseGet.body.created_at,
         updated_at: responseGet.body.updated_at,
       })
@@ -68,7 +74,7 @@ describe("Teste para metodo PATCH em /users/:id", () => {
   test("Tentando atualizar um usuário que não existe", async () => {
     const response = await request(app).get(`/users/1`);
 
-    expect(response.status).toEqual(404);
+    expect(response.status).toEqual(401);
     expect(response.body).toHaveProperty("message");
   });
 });

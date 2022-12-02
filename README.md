@@ -1,6 +1,6 @@
 # Projeto-Tecnico-S3-M6
 
-Projeto fullstack realizado em Node.js com o framework express com o banco de dados relacional Postgres e React com Typescript com o intuito de criar usuarios que podem criar diversos contatos vinculados a eles, ou seja, uma agenda eletrônica.
+Projeto fullstack realizado em Node.js com o framework express,banco de dados relacional Postgres e React com Typescript. Esse teste técnico tem o intuito de criar usuarios que podem criar diversos contatos vinculados a eles, ou seja, uma agenda eletrônica.
 
 ## Etapas em desenvolvimento
 

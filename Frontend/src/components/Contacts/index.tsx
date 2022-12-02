@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { EditContactContext } from "../../contexts/EditContactContext";
 import { GetAllContactsContext } from "../../contexts/GetAllContactsContext";
 import api from "../../services/api";
 import Button from "../Button";
@@ -8,6 +9,8 @@ import { SectionStyled } from "./styled";
 
 const Contacts = () => {
   const { allContacts, getAll } = useContext(GetAllContactsContext);
+  const { setIdContactData, isEdit, setIsEdit } =
+    useContext(EditContactContext);
 
   const [isDeleted, setIsDeleted] = useState(false);
 
@@ -17,7 +20,7 @@ const Contacts = () => {
     getAll();
     setIsDeleted(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDeleted]);
+  }, [isDeleted, isEdit]);
 
   const deleteContact = (id: string) => {
     api
@@ -56,6 +59,14 @@ const Contacts = () => {
             }}
           >
             Remove
+          </Button>
+          <Button
+            onClick={() => {
+              setIsEdit(true);
+              setIdContactData(elem.id);
+            }}
+          >
+            Editar
           </Button>
         </SectionStyled>
       ))}

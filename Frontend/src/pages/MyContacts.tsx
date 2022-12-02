@@ -3,15 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Button from "../components/Button";
 import Contacts from "../components/Contacts";
+import EditContactForm from "../components/EditContactForm";
 import HeaderStyled from "../components/Header/styled";
+import { DivStyled } from "../components/Modal/style";
 
 import MyContatsStyled from "../components/MyContats/styled";
+import { EditContactContext } from "../contexts/EditContactContext";
 import { GetAllContactsContext } from "../contexts/GetAllContactsContext";
 
 const MyContacts = () => {
   const navigate = useNavigate();
-
   const { setAllContacts } = useContext(GetAllContactsContext);
+  const { isEdit } = useContext(EditContactContext);
 
   const token = localStorage.getItem("@Project_S3_M6:Token");
 
@@ -48,6 +51,13 @@ const MyContacts = () => {
         <MyContatsStyled>
           <Contacts />
         </MyContatsStyled>
+        {isEdit && (
+          <DivStyled>
+            <section>
+              <EditContactForm />
+            </section>
+          </DivStyled>
+        )}
       </main>
     </>
   );

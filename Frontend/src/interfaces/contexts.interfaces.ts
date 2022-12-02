@@ -1,3 +1,4 @@
+import { FieldValues } from "react-hook-form";
 import { IContact } from "./contacts.interfaces";
 
 export interface ILogin {
@@ -17,4 +18,12 @@ export interface IGetAllContacts {
 }
 export interface ICreateContact {
   setCreateContactData: React.Dispatch<React.SetStateAction<{}>>;
+}
+
+export interface IEditContact {
+  idContactData: string;
+  setIdContactData: React.Dispatch<React.SetStateAction<string>>;
+  editContact: (id: string, data: FieldValues) => void;
+  isEdit: boolean;
+  setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
 }

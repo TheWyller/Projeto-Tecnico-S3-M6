@@ -3,83 +3,107 @@
 Projeto fullstack realizado em Node.js com o framework express com o banco de dados relacional Postgres e React com Typescript com o intuito de criar usuarios que podem criar diversos contatos vinculados a eles, ou seja, uma agenda eletrônica.
 
 ## Etapas em desenvolvimento
-  ### Front-end
-    - Criar botão de editar contato
+
+Itens em desenvolvimento ou esperando para serem desenvolvidos
+
+### Front-end
+
     - Poder adicionar mais de um email e telefone
     - Realizar Testes
-  ### Back-end
+    - Poder importar lista de contatos em PDF
+
+### Back-end
+
     - Poder adicionar mais de um email e telefone
     - Aumentar cobertura de Testes
-  ### Ambos
-    - Adicionar em um conteiner(Docker)
 
+### Ambos
+
+    - Adicionar em um conteiner(Docker)
 
 ## Como Rodar a Aplicação
 
 **Vale pontuar que o NODE deve estar instalado na máquina**
 
-*O gerenciador de arquivos usado foi o yarn mais pode ser usado o npm*
+_O gerenciador de arquivos usado foi o yarn mais pode ser usado o npm_
 
-### Início  
-  Realizar o clone do repositório. Na pasta raiz executar os seguintes comandos:
-  
-  Para inicializar o Backend:
-  ```shell
-    cd Backend
-  ```
-  ```shell
-    yarn
-  ```
-  criar um arquivo .env com os paramêtros de banco de dados e de usuário do postgres.
-  ```shell
-    POSTGRES_USER=
-    POSTGRES_PASSWORD=
-    POSTGRES_DB=
-    JWT_SECRET=
-    ADM_PASSWORD=
-  ```
-  Rodar as migrations do TypeORM
-  ```shell
-    yarn typeorm migration:run -d src/data-source.ts
-  ```
-  Abrir o servidor
-  ```shell
-    yarn dev
-  ```
-  Caso deseje testar apenas o backend com requisições diretas, o usuário ADM padrão é:
-  ```shell
-    email = root@root.com
-    senha = ADM_PASSWORD ou 123456 quando não aplicado no arquivo .env
-  ```
-  
-  Com o servidor do backend funcionado, deve-se abrir um novo terminal na raiz do projeto e executar os seguintes comandos, para inicializar o frontend:
-  ```shell
-    cd Frontend
-  ```
-  ```shell
-    yarn
-  ```
-  Para inicializar o Frontend:
-  ```shell
-    yarn start
-  ```
+### Início
+
+Realizar o clone do repositório. Na pasta raiz executar os seguintes comandos:
+
+Para inicializar o Backend:
+
+```shell
+  cd Backend
+```
+
+```shell
+  yarn
+```
+
+criar um arquivo .env com os paramêtros de banco de dados e de usuário do postgres.
+
+```shell
+  POSTGRES_USER=
+  POSTGRES_PASSWORD=
+  POSTGRES_DB=
+  JWT_SECRET=
+  ADM_PASSWORD=
+```
+
+Rodar as migrations do TypeORM
+
+```shell
+  yarn typeorm migration:run -d src/data-source.ts
+```
+
+Abrir o servidor
+
+```shell
+  yarn dev
+```
+
+Caso deseje testar apenas o backend com requisições diretas, o usuário ADM padrão é:
+
+```shell
+  email = root@root.com
+  senha = ADM_PASSWORD ou 123456 quando não aplicado no arquivo .env
+```
+
+Com o servidor do backend funcionado, deve-se abrir um novo terminal na raiz do projeto e executar os seguintes comandos, para inicializar o frontend:
+
+```shell
+  cd Frontend
+```
+
+```shell
+  yarn
+```
+
+Para inicializar o Frontend:
+
+```shell
+  yarn start
+```
 
 ## TESTES
-  ### Testes Backend
-  
-  Para todar os testes deve-se estar na raiz do projeto e aplicar os seguintes comandos:
-  
-  ```shell
-    cd Backend
-  ```
-  ```shell
-    yarn test
-  ```
-  
-  ### Testes Frontend
-  
-  **EM DESENVOLVIMENTO**
-  
+
+### Testes Backend
+
+Para todar os testes deve-se estar na raiz do projeto e aplicar os seguintes comandos:
+
+```shell
+  cd Backend
+```
+
+```shell
+  yarn test
+```
+
+### Testes Frontend
+
+**EM DESENVOLVIMENTO**
+
 ## Endpoints - API
 
 ## 1. **Users**
@@ -100,13 +124,13 @@ O objeto User é definido como:
 
 ### Endpoints
 
-| Método | Rota       | Descrição                                      |
-| ------ | ---------- | ---------------------------------------------- |
-| POST   | /users     | Criação de um usuário.                         |
-| GET    | /users     | Lista todos os usuários - apenas o ADM         |
-| GET    | /users/:id | Lista o próprio usuário                        |
-| DELETE | /users/:id | Deleta o usuário                               |
-| PATCH  | /users/:id | Atualiza campos do usuário passado por ID      |
+| Método | Rota       | Descrição                                 |
+| ------ | ---------- | ----------------------------------------- |
+| POST   | /users     | Criação de um usuário.                    |
+| GET    | /users     | Lista todos os usuários - apenas o ADM    |
+| GET    | /users/:id | Lista o próprio usuário                   |
+| DELETE | /users/:id | Deleta o usuário                          |
+| PATCH  | /users/:id | Atualiza campos do usuário passado por ID |
 
 ---
 
@@ -220,6 +244,7 @@ Vazio
 	"message": "Invalid token"
 }
 ```
+
 ou
 
 ```JSON
@@ -231,7 +256,6 @@ ou
 ---
 
 ### 1.3. **Atualizar um Usuário por ID**
-
 
 ### `/users/:id`
 
@@ -255,7 +279,7 @@ Authorization: Token e usuário dono
   "firstName": "Wyller2",
   "lastName": "Fernandes2",
   "email": "wyller2@kenzie.com",
-  "phone": "419999999992",
+  "phone": "419999999992"
 }
 ```
 
@@ -267,18 +291,18 @@ Authorization: Token e usuário dono
 
 ```json
 {
-	"message": "User updated",
-	"userdata": {
-		"id": "0721c526-34d3-41ff-82b0-0a19394a146a",
-		"firstName": "Wyller",
-		"lastName": "Fernandes",
-		"email": "wyller2@kenzie.com",
-		"phone": "41955555555",
-		"created_at": "2022-11-28T14:00:49.671Z",
-		"updated_at": "2022-11-29T11:51:39.021Z",
-		"isAdm": false,
-		"contacts": []
-	}
+  "message": "User updated",
+  "userdata": {
+    "id": "0721c526-34d3-41ff-82b0-0a19394a146a",
+    "firstName": "Wyller",
+    "lastName": "Fernandes",
+    "email": "wyller2@kenzie.com",
+    "phone": "41955555555",
+    "created_at": "2022-11-28T14:00:49.671Z",
+    "updated_at": "2022-11-29T11:51:39.021Z",
+    "isAdm": false,
+    "contacts": []
+  }
 }
 ```
 
@@ -408,17 +432,16 @@ Authorization: Token
 
 ```json
 {
-	"id": "26ec4d63-b785-44de-bcf2-3ddbc567f95b",
-	"firstName": "Wyller_Contato",
-	"lastName": "Fernandes",
-	"email": "wyller@kenzie.com",
-	"phone": "41999999999",
-	"created_at": "2022-11-29T20:10:57.574Z",
-	"updated_at": "2022-11-29T20:10:57.574Z",
-	"user": "d7b292cc-a4b2-4459-be2f-0e1a8c04ca5e"
+  "id": "26ec4d63-b785-44de-bcf2-3ddbc567f95b",
+  "firstName": "Wyller_Contato",
+  "lastName": "Fernandes",
+  "email": "wyller@kenzie.com",
+  "phone": "41999999999",
+  "created_at": "2022-11-29T20:10:57.574Z",
+  "updated_at": "2022-11-29T20:10:57.574Z",
+  "user": "d7b292cc-a4b2-4459-be2f-0e1a8c04ca5e"
 }
 ```
-
 
 ### 1.2. **Listando Contatos do Usuário**
 
@@ -446,22 +469,22 @@ Vazio
 ```json
 [
   {
-      "id": "41de310f-c408-44f5-b606-2c164db4f44d",
-      "firstName": "Thaly",
-      "lastName": "Fernandes",
-      "email": "wyller2@kenzie.com",
-      "phone": "419554763786",
-      "created_at": "2022-11-28T19:42:38.390Z",
-      "updated_at": "2022-11-29T11:30:30.338Z"
+    "id": "41de310f-c408-44f5-b606-2c164db4f44d",
+    "firstName": "Thaly",
+    "lastName": "Fernandes",
+    "email": "wyller2@kenzie.com",
+    "phone": "419554763786",
+    "created_at": "2022-11-28T19:42:38.390Z",
+    "updated_at": "2022-11-29T11:30:30.338Z"
   },
   {
-      "id": "a091b5cc-b2f2-4d6a-90bb-b0ba86b342dc",
-      "firstName": "Lyner",
-      "lastName": "Fernandes",
-      "email": "wyller3@kenzie.com",
-      "phone": "41999999999",
-      "created_at": "2022-11-29T12:13:06.082Z",
-      "updated_at": "2022-11-29T12:13:06.082Z"
+    "id": "a091b5cc-b2f2-4d6a-90bb-b0ba86b342dc",
+    "firstName": "Lyner",
+    "lastName": "Fernandes",
+    "email": "wyller3@kenzie.com",
+    "phone": "41999999999",
+    "created_at": "2022-11-29T12:13:06.082Z",
+    "updated_at": "2022-11-29T12:13:06.082Z"
   }
 ]
 ```
@@ -478,7 +501,6 @@ Vazio
 
 ### 1.3. **Atualizar um Contato por ID**
 
-
 ### `/contacts/:id`
 
 ### Exemplo de Request:
@@ -490,8 +512,8 @@ Authorization: Token e usuário dono do contato
 
 ### Parâmetros da Requisição:
 
-| Parâmetro | Tipo   | Descrição                             |
-| --------- | ------ | ------------------------------------- |
+| Parâmetro | Tipo   | Descrição                                |
+| --------- | ------ | ---------------------------------------- |
 | id        | string | Identificador único do contato (Contact) |
 
 ### Corpo da Requisição:
@@ -501,7 +523,7 @@ Authorization: Token e usuário dono do contato
   "firstName": "Wyller2",
   "lastName": "Fernandes2",
   "email": "wyller2@kenzie.com",
-  "phone": "419999999992",
+  "phone": "419999999992"
 }
 ```
 
@@ -513,16 +535,16 @@ Authorization: Token e usuário dono do contato
 
 ```json
 {
-	"message": "User updated",
-	"userdata": {
-		"id": "0721c526-34d3-41ff-82b0-0a19394a146a",
-		"firstName": "Wyller",
-		"lastName": "Fernandes",
-		"email": "wyller2@kenzie.com",
-		"phone": "41955555555",
-		"created_at": "2022-11-28T14:00:49.671Z",
-		"updated_at": "2022-11-29T11:51:39.021Z",
-	}
+  "message": "User updated",
+  "userdata": {
+    "id": "0721c526-34d3-41ff-82b0-0a19394a146a",
+    "firstName": "Wyller",
+    "lastName": "Fernandes",
+    "email": "wyller2@kenzie.com",
+    "phone": "41955555555",
+    "created_at": "2022-11-28T14:00:49.671Z",
+    "updated_at": "2022-11-29T11:51:39.021Z"
+  }
 }
 ```
 
@@ -563,9 +585,8 @@ vazio
 200 OK
 ```
 
-
 ### Possíveis Erros:
 
-| Código do Erro  | Descrição           |
-| --------------- | ------------------- |
-| 400 Conflict    | User not found.     |
+| Código do Erro | Descrição       |
+| -------------- | --------------- |
+| 400 Conflict   | User not found. |

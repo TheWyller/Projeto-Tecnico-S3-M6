@@ -33,6 +33,7 @@ export const LoginProvider = ({ children }: Ichildren) => {
           navigate("/contacts", { replace: true });
         })
         .catch((err) => toast.error("Senha ou email errados"));
+      setLoginData({});
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginData, navigate]);

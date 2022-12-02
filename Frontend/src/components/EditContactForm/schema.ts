@@ -8,5 +8,4 @@ export const schemaInfos = yup.object().shape({
     excludeEmptyString: true,
     message: "Mínimo de 10 digitos!",
   }),
-  password: yup.string(),
 });

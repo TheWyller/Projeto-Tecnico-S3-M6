@@ -63,14 +63,6 @@ const EditContactForm = () => {
           register={register}
           error={errors.phone?.message}
         />
-        <Input
-          name="password"
-          type="password"
-          label="Digite sua nova?"
-          placeholder="******"
-          register={register}
-          error={errors.password?.message}
-        />
         <Button type="submit">Editar contato</Button>
         <Button
           onClick={() => {

@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "ts-node-dev --watch --transpile-only src/server.ts",
     "typeorm": "typeorm-ts-node-commonjs",
-    "test": "NODE_ENV=test jest"
+    "migration": "typeorm-ts-node-commonjs migration:run -d src/data-source.ts",
+    "test": "NODE_ENV=test jest",
+    "start": "yarn migration && yarn dev"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
